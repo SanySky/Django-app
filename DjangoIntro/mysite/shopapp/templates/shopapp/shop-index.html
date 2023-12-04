@@ -11,10 +11,10 @@
 <div>
     <ul>
         {% for product, price in products %}
-        <li> {{ product }} for $ {{ price }} </li>
-        <% if product|lenght_is:'7' %>
-        <span> Lucky product </span>
-        <% endif %>
+            <li> {{ product }} for $ {{ price }} </li>
+            {% if product|length_is:'7' %}
+                <span> Lucky product </span>
+            {% endif %}
 
         {% empty %}
         No products here
