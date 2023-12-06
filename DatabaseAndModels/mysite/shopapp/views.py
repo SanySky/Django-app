@@ -1,9 +1,15 @@
 from timeit import default_timer
 
+<<<<<<< HEAD
 from django.http import HttpResponse, HttpRequest
 from django.contrib.auth.models import Group
 from django.shortcuts import render
 from .models import Product, Order
+=======
+from django.contrib.auth.models import Group
+from django.http import HttpResponse, HttpRequest
+from django.shortcuts import render
+>>>>>>> master
 
 
 def shop_index(request: HttpRequest):
@@ -25,6 +31,7 @@ def groups_list(request: HttpRequest):
         'groups': Group.objects.prefetch_related('permissions').all(),
     }
     return render(request, 'shopapp/groups-list.html', context=context)
+<<<<<<< HEAD
 
 
 def products_list(request: HttpRequest):
@@ -40,3 +47,5 @@ def orders_list(request: HttpRequest):
     }
     return render(request, 'shopapp/orders-list.html', context=context)
 
+=======
+>>>>>>> master
