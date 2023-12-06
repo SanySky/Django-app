@@ -1,12 +1,11 @@
-<<<<<<< HEAD
+
 from django.contrib.auth.models import User
-=======
->>>>>>> master
+
 from django.db import models
 
 
 class Product(models.Model):
-<<<<<<< HEAD
+
     class Meta:
         ordering = ['name', 'price']
         #db_table = 'tech_products'
@@ -26,9 +25,6 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     products = models.ManyToManyField(Product, related_name="orders")
-
-
-=======
     name = models.CharField(max_length=100)
     description = models.TextField(null=False, blank=True)
->>>>>>> master
+
