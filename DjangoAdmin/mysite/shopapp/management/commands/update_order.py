@@ -3,6 +3,7 @@ from django.core.management import BaseCommand
 
 from shopapp.models import Order, Product
 
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
         order = Order.objects.first()
