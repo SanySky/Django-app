@@ -1,5 +1,3 @@
-#TODO для того чтобы данные выносились в файл, проверил наличие данных в самой таблице, скачал IDE для просмотра данного вида файлов, проверил правильность написания кода, спросил у одногрупников
-
 import csv
 from django.db.models.options import Options
 from django.http import HttpResponse, HttpRequest
