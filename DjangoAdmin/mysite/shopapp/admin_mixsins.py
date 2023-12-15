@@ -1,4 +1,4 @@
-# TODO для того чтобы данные выносились в файл, проверил наличие данных в самой таблице, скачал IDE для просмотра данного вида файлов, проверил правильность написания кода, спросил у одногрупников
+#TODO для того чтобы данные выносились в файл, проверил наличие данных в самой таблице, скачал IDE для просмотра данного вида файлов, проверил правильность написания кода, спросил у одногрупников
 
 import csv
 from django.db.models.options import Options
@@ -29,4 +29,4 @@ class ExportAsCSVMixin:
 
         return response
 
-    export_csv.short_description = "Export as CSV"
+    export_csv.short_description = "Export for CSV"
