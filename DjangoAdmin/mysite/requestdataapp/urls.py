@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import process_det_view, user_form, handle_file_upload
 
-url_name = "requestdataapp"
+app_name = "requestdataapp"
 
 urlpatterns = [
     path("get/", process_det_view, name="get-vew"),

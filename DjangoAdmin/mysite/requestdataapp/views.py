@@ -2,6 +2,7 @@ from django.core.files.storage import FileSystemStorage
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
+from .forms import UserBioForms, UploadFileForm
 
 
 def process_det_view(request: HttpRequest) -> HttpResponse:
@@ -17,20 +18,31 @@ def process_det_view(request: HttpRequest) -> HttpResponse:
 
 
 def user_form(request: HttpRequest) -> HttpResponse:
-    return render(request, 'requestdataapp/user-bio-form.html')
+    context = {
+        "form": UserBioForms(),
+        }
+    return render(request, 'requestdataapp/user-bio-form.html', context=context)
 
 
 def handle_file_upload(request: HttpRequest) -> HttpResponse:
-    if request.method == "POST" and request.FILES.get("myfile"):
-        myfile = request.FILES["myfile"]
-        max_size = 100
+    if request.method == "POST":
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            myfile = form.cleaned_data["file"]
+            max_size = 100
 
-        if myfile.size / 1024 > max_size:
-            return HttpResponse(f"<h1>File size error!</h1>\n "
-                                f"<h2>File bigger than {max_size} kb</h2>")
+            if myfile.size / 1024 > max_size:
+                return HttpResponse(f"<h1>File size error!</h1>\n "
+                                    f"<h2>File bigger than {max_size} kb</h2>")
 
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
-        print("saved file", filename)
+            fs = FileSystemStorage()
+            filename = fs.save(myfile.name, myfile)
+            print("saved file", filename)
+    else:
+        form = UploadFileForm()
 
-    return render(request, 'requestdataapp/file-upload.html')
+    context = {
+        "form": form,
+    }
+
+    return render(request, 'requestdataapp/file-upload.html', context=context)
