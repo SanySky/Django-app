@@ -12,7 +12,7 @@ class ProductForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = "delivery_address", "promocode", "user"
+        fields = "delivery_address", "promocode", "user", "products"
 #from django.core import validators
 
 
