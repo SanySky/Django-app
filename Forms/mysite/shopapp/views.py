@@ -34,7 +34,7 @@ def products_list(request: HttpRequest):
     context = {
         "products": Product.objects.all(),
     }
-    return render(request, 'shopapp/products-list.html', context=context)
+    return render(request, 'shopapp/products_list.html', context=context)
 
 
 def create_product(request: HttpRequest):
@@ -50,14 +50,14 @@ def create_product(request: HttpRequest):
     context = {
         'form': form,
     }
-    return render(request, 'shopapp/create-product.html', context=context)
+    return render(request, 'shopapp/product_form.html', context=context)
 
 
 def orders_list(request: HttpRequest):
     context = {
         "orders": Order.objects.select_related("user").prefetch_related("products").all(),
     }
-    return render(request, 'shopapp/orders-list.html', context=context)
+    return render(request, 'shopapp/order_list.html', context=context)
 
 
 def create_order(request: HttpRequest):
@@ -73,4 +73,4 @@ def create_order(request: HttpRequest):
     context = {
         'form': form,
     }
-    return render(request, 'shopapp/create-order.html', context=context)
+    return render(request, 'shopapp/order_form.html', context=context)

@@ -35,7 +35,8 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     products = models.ManyToManyField(Product, related_name="orders")
 
-
+    def __str__(self) -> str:
+        return f"Order (pk{self.pk}, name={self.user!r})"
 
 
 
