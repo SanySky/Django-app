@@ -2,7 +2,7 @@ from django.urls import path
 from .views import shop_index, groups_list, products_list, orders_list
 
 
-url_name = "shopapp"
+url_name = "myauth"
 
 urlpatterns = [
     path('', shop_index, name='index'),

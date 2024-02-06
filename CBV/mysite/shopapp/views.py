@@ -24,7 +24,7 @@ class ShopIndexView(View):
             "time_running": default_timer(),
             "products": products,
         }
-        return render(request, 'shopapp/shop-index.html', context=context)
+        return render(request, 'myauth/shop-index.html', context=context)
 
 
 class GroupsListView(View):
@@ -33,7 +33,7 @@ class GroupsListView(View):
             "form": GroupForm(),
             'groups': Group.objects.prefetch_related('permissions').all(),
         }
-        return render(request, 'shopapp/groups-list.html', context=context)
+        return render(request, 'myauth/groups-list.html', context=context)
 
     def post(self, request: HttpRequest):
         form = GroupForm(request.POST)
@@ -44,14 +44,14 @@ class GroupsListView(View):
 
 
 class ProductListView(ListView):
-    template_name = "shopapp/products_list.html"
+    template_name = "myauth/products_list.html"
     # model = Product
     context_object_name = "products"
     queryset = Product.objects.filter(archived=False)
 
 
 class ProductDetailsView(DetailView):
-    template_name = "shopapp/product_details.html"
+    template_name = "myauth/product_details.html"
     model = Product
     context_object_name = "product"
 
@@ -59,7 +59,7 @@ class ProductDetailsView(DetailView):
 class ProductCreateView(CreateView):
     model = Product
     fields = "name", "price", "description", "discount"
-    success_url = reverse_lazy("shopapp:products_list")
+    success_url = reverse_lazy("myauth:products_list")
 
 
 class ProductUpdateView(UpdateView):
@@ -69,14 +69,14 @@ class ProductUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse(
-            "shopapp:product_details",
+            "myauth:product_details",
             kwargs={"pk": self.object.pk},
         )
 
 
 class ProductDeleteView(DeleteView):
     model = Product
-    success_url = reverse_lazy("shopapp:products_list")
+    success_url = reverse_lazy("myauth:products_list")
 
     def form_valid(self, form):
         success_url = self.get_success_url()
@@ -104,7 +104,7 @@ class OrderDetailView(DetailView):
 class OrderCreateView(CreateView):
     model = Order
     fields = "delivery_address", "promocode", "user", "products"
-    success_url = reverse_lazy("shopapp:orders_list")
+    success_url = reverse_lazy("myauth:orders_list")
 
 
 class OrderUpdateView(UpdateView):
@@ -114,14 +114,14 @@ class OrderUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse(
-            "shopapp:order_details",
+            "myauth:order_details",
             kwargs={"pk": self.object.pk},
         )
 
 
 class OrderDeleteView(DeleteView):
     model = Order
-    success_url = reverse_lazy("shopapp:products_list")
+    success_url = reverse_lazy("myauth:products_list")
 
 
 

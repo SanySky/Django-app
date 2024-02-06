@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shopapp', '0004_alter_product_options'),
+        ('myauth', '0004_alter_product_options'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='order',
             name='products',
-            field=models.ManyToManyField(related_name='orders', to='shopapp.product'),
+            field=models.ManyToManyField(related_name='orders', to='myauth.product'),
         ),
     ]

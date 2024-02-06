@@ -20,21 +20,21 @@ def shop_index(request: HttpRequest):
         "time_running": default_timer(),
         "products": products,
     }
-    return render(request, 'shopapp/shop-index.html', context=context)
+    return render(request, 'myauth/shop-index.html', context=context)
 
 
 def groups_list(request: HttpRequest):
     context = {
         'groups': Group.objects.prefetch_related('permissions').all(),
     }
-    return render(request, 'shopapp/groups-list.html', context=context)
+    return render(request, 'myauth/groups-list.html', context=context)
 
 
 def products_list(request: HttpRequest):
     context = {
         "products": Product.objects.all(),
     }
-    return render(request, 'shopapp/products_list.html', context=context)
+    return render(request, 'myauth/products_list.html', context=context)
 
 
 def create_product(request: HttpRequest):
@@ -43,21 +43,21 @@ def create_product(request: HttpRequest):
         if form.is_valid():
             #Product.objects.create(**form.cleaned_data)
             form.save()
-            url = reverse("shopapp:products_list")
+            url = reverse("myauth:products_list")
             return redirect(url)
     else:
         form = ProductForm()
     context = {
         'form': form,
     }
-    return render(request, 'shopapp/product_form.html', context=context)
+    return render(request, 'myauth/product_form.html', context=context)
 
 
 def orders_list(request: HttpRequest):
     context = {
         "orders": Order.objects.select_related("user").prefetch_related("products").all(),
     }
-    return render(request, 'shopapp/order_list.html', context=context)
+    return render(request, 'myauth/order_list.html', context=context)
 
 
 def create_order(request: HttpRequest):
@@ -66,11 +66,11 @@ def create_order(request: HttpRequest):
         if form.is_valid():
             #Product.objects.create(**form.cleaned_data)
             form.save()
-            url = reverse("shopapp:orders_list")
+            url = reverse("myauth:orders_list")
             return redirect(url)
     else:
         form = OrderForm()
     context = {
         'form': form,
     }
-    return render(request, 'shopapp/order_form.html', context=context)
+    return render(request, 'myauth/order_form.html', context=context)

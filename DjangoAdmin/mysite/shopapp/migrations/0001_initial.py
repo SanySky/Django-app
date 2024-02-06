@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('description', models.TextField(blank=True)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
-                ('products', models.ManyToManyField(related_name='orders', to='shopapp.product')),
+                ('products', models.ManyToManyField(related_name='orders', to='myauth.product')),
             ],
         ),
     ]

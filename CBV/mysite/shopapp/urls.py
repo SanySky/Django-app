@@ -15,7 +15,7 @@ from .views import (
 )
 
 
-app_name = "shopapp"
+app_name = "myauth"
 
 urlpatterns = [
     path('', ShopIndexView.as_view(), name='index'),

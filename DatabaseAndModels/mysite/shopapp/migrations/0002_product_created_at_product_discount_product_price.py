@@ -7,7 +7,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('shopapp', '0001_initial'),
+        ('myauth', '0001_initial'),
     ]
 
     operations = [
