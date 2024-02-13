@@ -1,9 +1,8 @@
 from django.contrib import admin
-from django.db.models import QuerySet
 from django.http import HttpRequest
-
+from django.db.models import QuerySet
 from .models import Product, Order
-from .admin_mixins import ExportAsCSVMixin
+from .admin_mixsins import ExportAsCSVMixin
 
 
 class OrderInline(admin.TabularInline):
@@ -30,14 +29,13 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
     inlines = [
         OrderInline,
     ]
-    # list_display = "pk", "name", "description", "price", "discount"
     list_display = "pk", "name", "description_short", "price", "discount", "archived"
     list_display_links = "pk", "name"
-    ordering = "-name", "pk"
-    search_fields = "name", "description"
+    ordering = "pk", "name"
+    search_fields = "name", "price"
     fieldsets = [
         (None, {
-           "fields": ("name", "description"),
+            "fields": ("name", "description"),
         }),
         ("Price options", {
             "fields": ("price", "discount"),
@@ -46,7 +44,7 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
         ("Extra options", {
             "fields": ("archived",),
             "classes": ("collapse",),
-            "description": "Extra options. Field 'archived' is for soft delete",
+            "description": "Extra options. Field 'archived' is for soft delite",
         })
     ]
 
@@ -56,6 +54,8 @@ class ProductAdmin(admin.ModelAdmin, ExportAsCSVMixin):
         return obj.description[:48] + "..."
 
 
+#admin.site.register(Product, ProductAdmin)
+#class ProductInline(admin.TabularInline):
 class ProductInline(admin.StackedInline):
     model = Order.products.through
 
