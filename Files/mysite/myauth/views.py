@@ -3,11 +3,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LogoutView
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import TemplateView, CreateView
-
+from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
+from django.contrib.auth.models import User
 from .models import Profile
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 class AboutMeView(TemplateView):
@@ -35,6 +36,35 @@ class RegisterView(CreateView):
 
 class MyLogoutView(LogoutView):
     next_page = reverse_lazy("myauth:login")
+
+
+class UserList(ListView):
+    template_name = "myauth/user-list.html"
+    context_object_name = "profiles"
+    queryset = Profile.objects.all
+
+
+class UserDetailsView(DetailView):
+    template_name = "myauth/about-me.html"
+    model = User
+    context_object_name = "user"
+
+
+class UserUpdateView(UserPassesTestMixin, UpdateView):
+    model = Profile
+    fields = ("avatar", )
+
+    def test_func(self):
+        if self.request.user.is_staff or self.request.user.pk == self.get_object().user_id:
+            return True
+        else:
+            return False
+
+    def get_success_url(self):
+        return reverse(
+            "myauth:user_detail",
+            kwargs={"pk": self.object.user.pk}
+        )
 
 
 @user_passes_test(lambda u: u.is_superuser)
