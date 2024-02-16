@@ -8,6 +8,7 @@ from django.views import View
 from django.views.generic import TemplateView, CreateView, ListView, DetailView, UpdateView
 from django.contrib.auth.models import User
 from .models import Profile
+from .forms import ProfileForm
 from django.contrib.auth.mixins import UserPassesTestMixin
 
 
@@ -52,7 +53,8 @@ class UserDetailsView(DetailView):
 
 class UserUpdateView(UserPassesTestMixin, UpdateView):
     model = Profile
-    fields = ("avatar", )
+    template_name_suffix = "_update_form"
+    form_class = ProfileForm
 
     def test_func(self):
         if self.request.user.is_staff or self.request.user.pk == self.get_object().user_id:
