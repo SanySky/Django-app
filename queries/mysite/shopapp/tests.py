@@ -7,7 +7,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from shopapp.models import Product
-from shopapp.utils import add_two_numbers
+from .utils import add_two_numbers
 
 
 class AddTwoNumbersTestCase(TestCase):
