@@ -12,7 +12,7 @@ class Command(BaseCommand):
     @transaction.atomic
     def handle(self, *args, **options):
         self.stdout.write("Create order with products")
-        user = User.objects.get(username="john")
+        user = User.objects.get(username="admin")
         # products: Sequence[Product] = Product.objects.defer(
         #     "description",
         #     "price",
