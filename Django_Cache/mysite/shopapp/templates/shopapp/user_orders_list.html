@@ -1,0 +1,26 @@
+{% extends 'shopapp/base.html' %}
+{% load cache %}
+
+{% block title %}
+  Orders list
+{% endblock %}
+
+{% block body %}
+  <h1>Список заказов {{ selected_user }}</h1>
+    {% if object_list%}
+      <p>Пользователь {{ selected_user }} выполнил следующие заказы:</p>
+      {% cache 100 user_order selected_user %}
+      <ul>
+        {% for order in object_list %}
+          <li>
+            <p>ID заказа - {{ order.id }},</p>
+            <p>Адрес заказа- {{ order.delivery_address }},</p>
+            <p>Использованный промокод - {{ order.promocode }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+      {% endcache %}
+    {% else %}
+      <p>У пользователя {{ selected_user }} ещё нет заказов.</p>
+    {% endif %}
+{% endblock %}
